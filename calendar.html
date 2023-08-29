@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <title>Calendar</title>
+  <meta charset="utf-8">
+  <!-- Calendar style sheet>-->
+  <link href='calendar.css' rel="stylesheet" type='text/css'>
+  <style>
+    * {box-sizing: border-box;}
+    ul {list-style-type: none;}
+    body {font-family: Verdana, sans-serif;}
+    
+    .month {
+      padding: 70px 25px;
+      width: 100%;
+      background: #e19e4c;
+      text-align: center;
+    }
+    
+    .month ul {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .month ul li {
+      color: white;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+    
+    .month .prev {
+      float: left;
+      padding-top: 10px;
+    }
+    
+    .month .next {
+      float: right;
+      padding-top: 10px;
+    }
+    
+    .weekdays {
+      margin: 0;
+      padding: 10px 0;
+      background-color: #ddd;
+    }
+    
+    .weekdays li {
+      display: inline-block;
+      width: 13.6%;
+      color: #666;
+      text-align: center;
+    }
+    
+    .days {
+      padding: 10px 0;
+      background: #eee;
+      margin: 0;
+    }
+    
+    .days li {
+      list-style-type: none;
+      display: inline-block;
+      width: 13.6%;
+      text-align: center;
+      margin-bottom: 5px;
+      font-size:12px;
+      color: #777;
+    }
+    
+    .days li .active {
+      padding: 5px;
+      background: #e19e4c;
+      color: white !important
+    }
+    
+    /* Add media queries for smaller screens */
+    @media screen and (max-width:720px) {
+      .weekdays li, .days li {width: 13.1%;}
+    }
+    
+    @media screen and (max-width: 420px) {
+      .weekdays li, .days li {width: 12.5%;}
+      .days li .active {padding: 2px;}
+    }
+    
+    @media screen and (max-width: 290px) {
+      .weekdays li, .days li {width: 12.2%;}
+    }
+    </style>
+</head>
+
+<body>
+  <!-- Month, Year, and Buttons>-->
+  <div id="header">Welcome to your calendar</div>
+  <div class="month">      
+    <ul>
+      <li class="prev">&#10094;
+        <button class = buttonEvents id="prevMonth" type="button"> Previous </button>
+      </li>
+      <li class="next">&#10095;
+        <button class = buttonEvents  id="nextMonth" type="button"> Next </button>
+      </li>
+      <li id = "current_month">
+        <span id="month_name"></span>
+        
+     
+      </li>
+    </ul>
+  </div>
+  <!-- Hidden token>-->
+  <div class = 'hidden' id = csrf_token></div>
+  <!-- Grid for calendar>-->
+  <div id = "calendarGrid">
+    <ul class="weekdays">
+      <li>Mo</li>
+      <li>Tu</li>
+      <li>We</li>
+      <li>Th</li>
+      <li>Fr</li>
+      <li>Sa</li>
+      <li>Su</li>
+    </ul>
+    <!-- All of our days>-->
+    <ul class="days" id="daysID">
+      <li class="day" id = '27h' >
+              <div class = "date" id = '27h'></div>
+        </li>
+      <li class="day" id = '28h'>
+              <div class = "date" id = '28h'></div>
+              </li>
+      <li class="day" id = '29h'>
+              <div class = "date" id = '29h'></div>
+
+              </li>
+      <li class="day" id = '30h'>
+              <div class = "date" id = '30h'></div>
+
+              </li>
+      <li class="day" id = '31h'>
+              <div class = "date" id = '31h'></div>
+
+              </li>
+      <li class="day" id = '1'>
+              <div class = "date" id = '1'>1</div>
+
+              </li>
+      <li class="day" id = '2'>
+              <div class = "date" id = '2'>2</div>
+
+              </li>
+      <li class="day" id = '3'>
+          <div class = "date" id = '3' >3</div>
+      </li>
+      <li class="day" id = '4'>
+              <div class = "date" id = '4'>4</div>
+          </li>
+      <li class="day" id = '5'>
+              <div class = "date" id = '5'>5</div>
+      </li>
+      <li class="day" id = '6'>
+              <div class = "date" id = '6'>6</div>
+      </li>
+      <li class="day" id = '7'>
+              <div class = "date" id = '7'>7</div>
+      </li>
+      <li class="day" id = '8'>
+              <div class = "date" id = '8'>8</div>
+      </li>
+      <li class="day" id = '9'>
+              <div class = "date" id = '9'>9</div>
+      </li>
+      <li class="day" id = '10'>
+              <div class = "date" id = '10'>10</div>
+      </li>
+      <li class="day" id = '11'>
+              <div class = "date" id = '11'>11</div>
+      </li>
+      <li class="day" id = '12'>
+              <div class = "date" id = '12'>12</div>
+      </li>
+      <li class="day" id = '13'>
+              <div class = "date" id = '13'>13</div>
+      </li>
+      <li class="day" id = '14'>
+              <div class = "date" id = '14'>14</div>
+      </li>
+      <li class="day" id = '15'>
+              <div class = "date" id = '15'>15</div>
+      </li>
+      <li class="day" id = '16'>
+              <div class = "date" id = '16' >16</div>
+      </li>
+      <li class="day" id = '17' >
+              <div class = "date" id = '17'>17</div>
+      </li>
+      <li class="day" id = '18'>
+              <div class = "date" id = '18'>18</div>
+      </li>
+      <li class="day"  id = '19'>
+              <div class = "date"  id = '19'>19</div>
+      </li>
+      <li class="day"  id = '20'>
+              <div class = "date" id = '20'>20</div>
+      </li>
+      <li class="day" id = '21'>
+              <div class = "date" id = '21'>21</div>
+      </li>
+      <li class="day" id = '22'>
+              <div class = "date" id = '22'>22</div>
+      </li>
+      <li class="day" id = '23'>
+              <div class = "date" id = '23'>23</div>
+      </li>
+      <li class="day" id = '24'>
+              <div class = "date" id = '24'>24</div>
+      </li>
+      <li class="day" id = '25'>
+              <div class = "date" id = '25'>25</div>
+      </li>
+      <li class="day" id = '26'>
+              <div class = "date" id = '26'>26</div>
+      </li>
+      <li class="day" id = '27'>
+              <div class = "date" id = '27'>27</div>
+      </li>
+      <li class="day" id = '28'>
+              <div class = "date" id = '28'>28</div>
+      </li>
+      <li class="day" id = '29'>
+              <div class = "date" id = '29'>29</div>
+      </li>
+      <li class="day" id = '30'>
+              <div class = "date" id = '30'>30</div>
+      </li>
+      <li class="day" id = '31'>
+              <div class = "date" ></div>
+      </li>
+      <li class="day" id = '32'>
+              <div class = "date" ></div>
+      </li>
+      <li class="day" id = '33'>
+              <div class = "date" ></div>
+      </li>
+      <li class="day" id = '34'>
+              <div class = "date" ></div>
+      </li>
+      <li class="day" id = '35'>
+              <div class = "date" ></div>
+      </li>
+      <li class="day" id = '36'>
+              <div class = "date" ></div>
+      </li>
+      <li class="day" id = '37'>
+              <div class = "date" ></div>
+      </li>
+    </ul>
+</div>
+<!-- Retrieve our weather>-->
+<div id = getWeather title = "getWeather">
+        <button class = buttonFun  id = "getWeatherButton">Get weather of day</button> 
+</div>
+<div id = weatherDate title = "weatherDate"></div>
+  
+<div id = weatherInfo title = "weatherInfo"></div>
+<div id="logout">
+        <button class = buttonFun  id="logout_button">Logout</button>
+ </div>
+ <!-- List our events of current month>-->
+<div id = eventTitle>Your Events This Month: <br></div>
+<div id="personData"></div>
+  <!-- login -->
+  <div id="login">
+    <p>Login</p>
+    <label for="username"> Username: </label>
+    <input type="text" id="username" name="username" placeholder="Username" required>
+    <br><br><label for="password">Password: </label>
+    <input type="password" id="password" name="password" placeholder="Password" required>
+    <button name="login_button" id="login_button" class = buttonEvents > Log In </button>
+  </div>
+  <!-- register -->
+  <div id="register">
+    <p>New User? Register Below!</p>
+    <label for="new-username">New Username: </label>
+    <input type="text" id="new-username" name="new-username" placeholder="New Username" required>
+    <br><br><label for="new-password">New Password: </label>
+    <input type="password" id="new-password" name="new-password" placeholder="New Password" required>
+    <input type="button" name="register_button" id="register_button" value="Create Account" class = buttonEvents >
+  </div>
+ 
+  <!-- Add event -->
+<div class = flexEvents>
+  <div class = addCol id="addEvent">
+    <p>
+        <label for="eventName">Event Name</label> <input type="text" id="eventName" name="eventName" placeholder="Event Name" required ><br>
+        <label for="day">Day</label> <input type="number" id="day" name="day" min = "1" max = "31" placeholder="Day"  required ><br>
+        <label for="month">Month</label> <input type="number" id="month" name="month" min = "1" max = "12" placeholder="Month Number" required ><br>
+        <label for="year">Event Year</label> <input type="number" id="year" name="year" placeholder="Year" required><br>
+        <label for="eventTime">Event Time</label> <input type="time" id="eventTime" name="eventTime" required ><br>
+        <input type="button" name="add_event_button" id="add_event_button" value="Add event" class = buttonEvents >
+    </p>
+  </div> 
+  <!-- Calendar Grid -->
+  <div class = deleteCol id="deleteEvent">
+        <p>
+        <label for="delete_event_id">Event ID</label> <input type="number" id="delete_event_id" name="delete_event_id" placeholder="Event Id" required ><br>
+        <input type="button" name="deleteButton" id="deleteButton" value="Delete" class = buttonEvents >
+        </p>
+ </div> 
+ <div class = editCol id= edit title="Edit Event">
+        <label for="newEventID">Event ID</label> <input type="number" id="newEventID" name="newEventID" required ><br>
+        <label for="newEventTitle">Event Title: </label> <input type="text" id="newEventTitle" name="newEventTitle"> <br>
+        <label for="newMonth">Event Month: </label><input type="number" id="newMonth" name="newMonth"> <br>
+        <label for="newDay">Event Day: </label><input type="number" id="newDay" name="newDay"> <br>
+        <label for="newYear">Event Year: </label><input type="number" id="newYear" name="newYear" required> <br>
+        <label for="newTime">Event Time: </label><input type="time" id="newTime" name="newTime"> <br>
+        <button class = buttonEvents id="editButton"> Edit Event</button> 
+    </div>
+<br>
+    <div class = shareCol id= share title="Share Event">
+        <label for="sharedId">Event ID</label> <input type="number" id="sharedId" name="sharedId" required ><br>
+        <label for="recipient">Recipient</label> <input type="text" id="recipient" name="recipient" required ><br>
+        <button class = buttonEvents id="shareButton"> Share Event</button> 
+    </div>
+ 
+<br> 
+    <div class = searchCol id = searchEvents title = "Search For Your Events">
+        <label for="searchName">Event Name</label> <input type="text" id="searchName" name="searchName" required ><br>
+        <button class = buttonEvents id="searchButton"> Search for Event</button> 
+        <div id = searchResult></div>
+    </div>
+    
+</div>
+ <!-- logout -->
+
+  
+ 
+
+  <script src="http://classes.engineering.wustl.edu/cse330/content/calendar.min.js"></script>
+  <script src="userFunctions.js"></script>
+  <script src="cal.js"></script>
+</body>
+
+</html>
